@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Turquoise Istanbul</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Restaurant Turquoise Istanbul, 110 boulevard de Magenta, Paris 10e. Cuisine turque : döner, dürüm, grillades. Sur place et à emporter.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap">
+<style>
+/* Layout : bandeau d'en-tête à motif de carreaux d'Iznik, carte en grille, horaires en tableau, contact en bandeau sombre. */
+:root{
+  --bg:#f5fafa;
+  --surface:#ffffff;
+  --ink:#10292c;
+  --muted:#4f6a6d;
+  --line:#d3e4e5;
+  --turq:#0e8f8a;
+  --cobalt:#1f3f8f;
+  --ember:#c4401f;
+  --on-dark:#eefaf9;
+  --display:"Unbounded", "Segoe UI", system-ui, sans-serif;
+  --body:"DM Sans", "Segoe UI", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0b1a1c; --surface:#112426; --ink:#e6f4f3; --muted:#9db7b8; --line:#21393b;
+    --turq:#3cc4bd; --cobalt:#8aa6ee; --ember:#f0754f; --on-dark:#eefaf9; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0b1a1c; --surface:#112426; --ink:#e6f4f3; --muted:#9db7b8; --line:#21393b;
+  --turq:#3cc4bd; --cobalt:#8aa6ee; --ember:#f0754f; --on-dark:#eefaf9; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6}
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;line-height:1.1;margin:0}
+.label{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--turq)}
+a:focus-visible,button:focus-visible{outline:3px solid var(--turq);outline-offset:3px}
+
+/* Hero : motif de carreaux */
+.hero{position:relative;background-color:var(--cobalt);color:var(--on-dark);overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;opacity:.22;
+  background-image:
+    radial-gradient(circle at 50% 50%, transparent 30%, var(--turq) 31%, var(--turq) 36%, transparent 37%),
+    radial-gradient(circle at 0 0, var(--turq) 18%, transparent 19%),
+    radial-gradient(circle at 100% 100%, var(--turq) 18%, transparent 19%),
+    radial-gradient(circle at 100% 0, var(--turq) 18%, transparent 19%),
+    radial-gradient(circle at 0 100%, var(--turq) 18%, transparent 19%);
+  background-size:72px 72px}
+.hero .wrap{position:relative;padding-block:28px 64px;display:flex;flex-direction:column;gap:40px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.brand{font-family:var(--display);font-weight:800;font-size:1.15rem;letter-spacing:.02em}
+nav{display:flex;gap:20px;flex-wrap:wrap}
+nav a{color:var(--on-dark);text-decoration:none;font-weight:500}
+nav a:hover{text-decoration:underline}
+.hero h1{font-size:clamp(2.4rem,7vw,4.8rem);font-weight:800;letter-spacing:-.01em}
+.hero h1 span{display:block;color:#7fe3dc}
+.hero p{max-width:50ch;font-size:1.12rem;margin:18px 0 26px;opacity:.92}
+.chips{display:flex;gap:10px;flex-wrap:wrap}
+.chip{border:1px solid rgba(238,250,249,.5);border-radius:999px;padding:6px 14px;font-size:.92rem;font-weight:500;background:rgba(0,0,0,.12)}
+.chip.open{background:var(--ember);border-color:var(--ember);color:#fff}
+
+section{padding-block:72px}
+.head{display:flex;flex-direction:column;gap:10px;margin-bottom:34px;max-width:60ch}
+.head h2{font-size:clamp(1.6rem,4vw,2.3rem);font-weight:700}
+.head p{margin:0;color:var(--muted)}
+
+/* Carte */
+.menu{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.dish{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:24px;display:flex;gap:18px;align-items:flex-start;min-width:0}
+.dish .tr{font-family:var(--display);font-size:.8rem;color:var(--ember);font-weight:700;white-space:nowrap;padding-top:4px;min-width:72px}
+.dish h3{font-size:1.15rem;margin-bottom:6px}
+.dish p{margin:0;color:var(--muted)}
+
+/* Infos */
+.infos{background:var(--surface);border-block:1px solid var(--line)}
+.infos .wrap{display:grid;grid-template-columns:1fr 1fr;gap:48px}
+.hours{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+.hours td{padding:10px 0;border-bottom:1px solid var(--line)}
+.hours td:last-child{text-align:right;font-weight:500}
+.hours tr.closed td:last-child{color:var(--ember)}
+.services{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px}
+.services li{display:flex;gap:12px;align-items:baseline}
+.services li::before{content:"";width:10px;height:10px;transform:rotate(45deg);background:var(--turq);flex:none;margin-top:6px}
+
+/* Contact */
+.contact{background:var(--ink);color:var(--bg)}
+.contact .label{color:var(--turq)}
+.contact-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.card{border:1px solid color-mix(in srgb, var(--bg) 25%, transparent);border-radius:12px;padding:22px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.card .val{font-family:var(--display);font-size:1.2rem;font-weight:700;word-break:break-word;user-select:all}
+.copy{align-self:flex-start;background:none;color:var(--bg);border:1px solid color-mix(in srgb, var(--bg) 40%, transparent);border-radius:999px;padding:6px 14px;font:inherit;font-size:.85rem;cursor:pointer}
+.copy:hover{background:color-mix(in srgb, var(--bg) 12%, transparent)}
+footer .wrap{padding-block:26px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:.88rem}
+
+@media (max-width:820px){
+  .menu,.infos .wrap,.contact-grid{grid-template-columns:1fr}
+  .infos .wrap{gap:40px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+.gallery{padding-top:0}
+.grid-ph{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.ph{margin:0;position:relative;border-radius:12px;overflow:hidden;background:var(--line);aspect-ratio:4/3;max-width:100%}
+.ph.big{grid-column:span 2;grid-row:span 2;aspect-ratio:auto}
+.ph img{width:100%;height:100%;object-fit:cover;display:block}
+.ph figcaption{position:absolute;left:0;right:0;bottom:0;padding:28px 14px 12px;background:linear-gradient(transparent,rgba(0,0,0,.72));color:#fff;display:flex;flex-direction:column;line-height:1.3}
+.ph figcaption strong{font-family:var(--display);font-size:1rem}
+.ph figcaption span{font-size:.85rem;opacity:.9}
+.credits{font-size:.78rem;color:var(--muted);padding-bottom:20px}
+.credits a{color:var(--muted)}
+@media (max-width:820px){.grid-ph{grid-template-columns:repeat(2,minmax(0,1fr))}.ph.big{grid-column:span 2;grid-row:auto;aspect-ratio:16/10}}
+@media (max-width:480px){.grid-ph{grid-template-columns:1fr}.ph.big{grid-column:auto}}
+
+.resa{background:var(--surface);border-block:1px solid var(--line)}
+.form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 20px;max-width:760px}
+.f{display:flex;flex-direction:column;gap:6px;min-width:0}
+.f.full{grid-column:1/-1}
+.f label{font-weight:700;font-size:.92rem}
+.f input,.f select{font:inherit;padding:11px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);width:100%}
+.f input:focus,.f select:focus{outline:2px solid var(--turq);border-color:var(--turq)}
+.f input[aria-invalid="true"]{border-color:var(--ember)}
+.form button{justify-self:start;align-self:flex-start;font:inherit;font-weight:700;padding:13px 24px;border:0;border-radius:999px;background:var(--ember);color:#fff;cursor:pointer}
+.form button[disabled]{opacity:.6;cursor:wait}
+.msg{margin:4px 0 0;font-weight:500}
+.msg.ok{color:var(--turq)} .msg.err{color:var(--ember)}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.cta-resa{display:inline-block;margin-top:22px;padding:13px 24px;border-radius:999px;background:var(--ember);color:#fff;font-weight:700;text-decoration:none}
+@media (max-width:600px){.form{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+
+<header class="hero">
+  <div class="wrap">
+    <div class="top">
+      <div class="brand">TURQUOISE ISTANBUL</div>
+      <nav aria-label="Navigation principale">
+        <a href="#carte">La carte</a>
+        <a href="#photos">Photos</a>
+        <a href="#reservation">Réserver</a>
+        <a href="#infos">Horaires</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+    <div>
+      <p class="label" style="color:#7fe3dc">Restaurant turc · Paris 10e</p>
+      <h1>Turquoise <span>Istanbul</span></h1>
+      <p>Döner, dürüm et grillades préparés par un chef turc, à deux pas de la gare du Nord. Généreux, chaud, à déguster sur place ou à emporter.</p>
+      <div class="chips">
+        <span class="chip open">Lun – sam · 11h30 – 22h</span>
+        <span class="chip">Sur place</span>
+        <span class="chip">À emporter</span>
+        <span class="chip">Terrasse</span>
+      </div>
+      <a class="cta-resa" href="#reservation">Réserver une table</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section id="carte" aria-labelledby="t-carte">
+    <div class="wrap">
+      <div class="head">
+        <span class="label">La carte</span>
+        <h2 id="t-carte">Les classiques de la cuisine turque</h2>
+        <p>Servis avec frites et sauces : mayonnaise, ketchup, barbecue et sauce turque maison.</p>
+      </div>
+      <div class="menu">
+        <div class="dish"><span class="tr">Döner</span><div><h3>Sandwich döner</h3><p>Viande grillée à la broche, crudités et sauce au choix dans un pain cuit.</p></div></div>
+        <div class="dish"><span class="tr">Dürüm</span><div><h3>Dürüm</h3><p>Galette roulée garnie de viande grillée et de crudités, en grande portion.</p></div></div>
+        <div class="dish"><span class="tr">Porsiyon</span><div><h3>Assiette döner</h3><p>La viande du döner servie à l'assiette, avec frites et salade.</p></div></div>
+        <div class="dish"><span class="tr">Izgara</span><div><h3>Grillades</h3><p>Viandes grillées à la turque, servies en assiette.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="gallery" id="photos" aria-labelledby="t-photos">
+    <div class="wrap">
+      <div class="head"><span class="label">En images</span><h2 id="t-photos">Broche, grillades et mezze</h2></div>
+      <div class="grid-ph"><figure class="ph big"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/D%C3%B6ner_kebab_slicing.jpg?width=900" alt="La broche — Viande découpée à la broche" loading="lazy"><figcaption><strong>La broche</strong><span>Viande découpée à la broche</span></figcaption></figure><figure class="ph"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/D%C3%B6ner_Kebab_auf_Teller.jpg?width=900" alt="Assiette döner — Servie avec frites et salade" loading="lazy"><figcaption><strong>Assiette döner</strong><span>Servie avec frites et salade</span></figcaption></figure><figure class="ph"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Adana_kebab.jpg?width=900" alt="Grillades — Brochettes grillées au feu" loading="lazy"><figcaption><strong>Grillades</strong><span>Brochettes grillées au feu</span></figcaption></figure><figure class="ph"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Meze_Lido_Restaurant_Adalar.JPG?width=900" alt="Mezze — Assortiment d'entrées froides" loading="lazy"><figcaption><strong>Mezze</strong><span>Assortiment d'entrées froides</span></figcaption></figure><figure class="ph"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/D%C3%BCr%C3%BCm_D%C3%B6ner.jpg?width=900" alt="Dürüm — Galette roulée garnie" loading="lazy"><figcaption><strong>Dürüm</strong><span>Galette roulée garnie</span></figcaption></figure></div>
+    </div>
+  </section>
+  <section class="infos" id="infos" aria-labelledby="t-infos">
+    <div class="wrap">
+      <div>
+        <div class="head"><span class="label">Horaires</span><h2 id="t-infos">Ouvert six jours sur sept</h2></div>
+        <table class="hours">
+          <tbody>
+            <tr><td>Lundi</td><td>11h30 – 22h00</td></tr>
+            <tr><td>Mardi</td><td>11h30 – 22h00</td></tr>
+            <tr><td>Mercredi</td><td>11h30 – 22h00</td></tr>
+            <tr><td>Jeudi</td><td>11h30 – 22h00</td></tr>
+            <tr><td>Vendredi</td><td>11h30 – 22h00</td></tr>
+            <tr><td>Samedi</td><td>11h30 – 22h00</td></tr>
+            <tr class="closed"><td>Dimanche</td><td>Fermé</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <div class="head"><span class="label">Sur place</span><h2>Pour tous les appétits</h2></div>
+        <ul class="services">
+          <li>Salle intérieure et terrasse</li>
+          <li>Vente à emporter</li>
+          <li>Accueil des groupes et des familles</li>
+          <li>Prix accessibles, portions généreuses</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="resa" id="reservation" aria-labelledby="t-resa">
+    <div class="wrap">
+      <div class="head"><span class="label">Réservation</span><h2 id="t-resa">Réserver une table</h2>
+        <p>Remplissez le formulaire : vous recevrez un e-mail avec un lien pour confirmer. Votre réservation est envoyée au restaurant dès que vous cliquez sur ce lien.</p></div>
+      <form id="resa-form" class="form" novalidate>
+        <div class="f"><label for="r-prenom">Prénom</label><input id="r-prenom" name="prenom" required autocomplete="given-name"></div>
+        <div class="f"><label for="r-nom">Nom</label><input id="r-nom" name="nom" required autocomplete="family-name"></div>
+        <div class="f"><label for="r-tel">Téléphone</label><input id="r-tel" name="tel" type="tel" required autocomplete="tel" placeholder="06 12 34 56 78"></div>
+        <div class="f"><label for="r-email">E-mail</label><input id="r-email" name="email" type="email" required autocomplete="email" placeholder="vous@exemple.fr"></div>
+        <div class="f"><label for="r-date">Date</label><input id="r-date" name="date" type="date" required></div>
+        <div class="f"><label for="r-heure">Heure</label><select id="r-heure" name="heure" required><option value="">Choisir</option><option value="11:30">11h30</option><option value="12:00">12h00</option><option value="12:30">12h30</option><option value="13:00">13h00</option><option value="13:30">13h30</option><option value="14:00">14h00</option><option value="14:30">14h30</option><option value="15:00">15h00</option><option value="15:30">15h30</option><option value="16:00">16h00</option><option value="16:30">16h30</option><option value="17:00">17h00</option><option value="17:30">17h30</option><option value="18:00">18h00</option><option value="18:30">18h30</option><option value="19:00">19h00</option><option value="19:30">19h30</option><option value="20:00">20h00</option><option value="20:30">20h30</option><option value="21:00">21h00</option><option value="21:30">21h30</option></select></div>
+        <div class="f"><label for="r-pers">Nombre de personnes</label><input id="r-pers" name="personnes" type="number" min="1" max="30" value="2" required></div>
+        <div class="hp" aria-hidden="true"><label for="r-web">Site web</label><input id="r-web" name="website" tabindex="-1" autocomplete="off"></div>
+        <div class="f full"><button type="submit" id="r-btn">Envoyer ma demande</button><p id="r-msg" class="msg" role="status" aria-live="polite"></p></div>
+      </form>
+    </div>
+  </section>
+  <section class="contact" id="contact" aria-labelledby="t-contact">
+    <div class="wrap">
+      <div class="head"><span class="label">Contact</span><h2 id="t-contact">Venez nous voir</h2></div>
+      <div class="contact-grid">
+        <div class="card"><span class="label">Adresse</span><span class="val">110 boulevard de Magenta<br>75010 Paris</span></div>
+        <div class="card"><span class="label">Téléphone</span><span class="val" id="tel">09 54 90 95 50</span><button class="copy" data-copy="tel" type="button">Copier</button></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© Turquoise Istanbul · Les Délices d'Orient</span>
+    <span>110 boulevard de Magenta, 75010 Paris</span>
+  </div>
+  <div class="wrap credits">Photos d'illustration : Wikimedia Commons, licences libres (auteurs et licences sur chaque page) — <a href="https://commons.wikimedia.org/wiki/File:D%C3%B6ner_kebab_slicing.jpg" target="_blank" rel="noopener">La broche</a> · <a href="https://commons.wikimedia.org/wiki/File:D%C3%B6ner_Kebab_auf_Teller.jpg" target="_blank" rel="noopener">Assiette döner</a> · <a href="https://commons.wikimedia.org/wiki/File:Adana_kebab.jpg" target="_blank" rel="noopener">Grillades</a> · <a href="https://commons.wikimedia.org/wiki/File:Meze_Lido_Restaurant_Adalar.JPG" target="_blank" rel="noopener">Mezze</a> · <a href="https://commons.wikimedia.org/wiki/File:D%C3%BCr%C3%BCm_D%C3%B6ner.jpg" target="_blank" rel="noopener">Dürüm</a>.</div>
+</footer>
+
+<script>
+document.querySelectorAll('.copy').forEach(function(b){
+  b.addEventListener('click',function(){
+    var el=document.getElementById(b.dataset.copy), txt=el.textContent.trim();
+    var done=function(){b.textContent='Copié';setTimeout(function(){b.textContent='Copier';},1600);};
+    var fallback=function(){var r=document.createRange();r.selectNodeContents(el);var s=getSelection();s.removeAllRanges();s.addRange(r);};
+    try{navigator.clipboard.writeText(txt).then(done,fallback);}catch(e){fallback();}
+  });
+});
+</script>
+
+
+<script>
+(function(){
+  var URL_SCRIPT='A_REMPLACER_PAR_URL_APPS_SCRIPT';
+  var f=document.getElementById('resa-form'),msg=document.getElementById('r-msg'),btn=document.getElementById('r-btn'),d=document.getElementById('r-date');
+  var today=new Date();today.setMinutes(today.getMinutes()-today.getTimezoneOffset());d.min=today.toISOString().slice(0,10);
+  function say(t,ok){msg.textContent=t;msg.className='msg '+(ok?'ok':'err');}
+  f.addEventListener('submit',function(e){
+    e.preventDefault();
+    var bad=null;
+    f.querySelectorAll('[required]').forEach(function(el){var v=el.checkValidity();el.setAttribute('aria-invalid',v?'false':'true');if(!v&&!bad)bad=el;});
+    if(bad){say('Vérifiez le champ « '+f.querySelector('label[for="'+bad.id+'"]').textContent+' ».');bad.focus();return;}
+    if(new Date(d.value+'T12:00:00').getDay()===0){say('Le restaurant est fermé le dimanche. Choisissez un autre jour.');d.focus();return;}
+    if(URL_SCRIPT.indexOf('http')!==0){say('La réservation en ligne sera bientôt disponible. Appelez-nous au 09 54 90 95 50.');return;}
+    btn.disabled=true;say('Envoi en cours…',true);
+    fetch(URL_SCRIPT,{method:'POST',mode:'no-cors',body:new URLSearchParams(new FormData(f))})
+      .then(function(){f.reset();say('Demande envoyée. Ouvrez l\'e-mail que nous venons de vous envoyer et cliquez sur le lien pour confirmer votre réservation (pensez à vérifier vos spams).',true);})
+      .catch(function(){say('L\'envoi a échoué. Vérifiez votre connexion ou appelez-nous au 09 54 90 95 50.');})
+      .finally(function(){btn.disabled=false;});
+  });
+})();
+</script>
+</body>
+</html>
