@@ -131,6 +131,10 @@ footer .wrap{padding-block:26px;display:flex;justify-content:space-between;gap:1
 .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 .cta-resa{display:inline-block;margin-top:22px;padding:13px 24px;border-radius:999px;background:var(--ember);color:#fff;font-weight:700;text-decoration:none}
 @media (max-width:600px){.form{grid-template-columns:1fr}}
+.maps{align-self:flex-start;color:var(--bg);border:1px solid color-mix(in srgb, var(--bg) 40%, transparent);border-radius:999px;padding:6px 14px;font-size:.85rem;text-decoration:none}
+.maps:hover{background:color-mix(in srgb, var(--bg) 12%, transparent)}
+.cta-maps{display:inline-block;margin:22px 0 0 10px;padding:11px 22px;border-radius:999px;border:2px solid rgba(238,250,249,.7);color:var(--on-dark);font-weight:700;text-decoration:none}
+@media (max-width:480px){.cta-maps{margin-left:0}}
 </style>
 </head>
 <body>
@@ -159,6 +163,7 @@ footer .wrap{padding-block:26px;display:flex;justify-content:space-between;gap:1
         <span class="chip">Terrasse</span>
       </div>
       <a class="cta-resa" href="#reservation">Réserver une table</a>
+      <a class="cta-maps" href="https://www.google.com/maps/search/?api=1&amp;query=Restaurant+Turquoise+Istanbul+110+Boulevard+de+Magenta+75010+Paris&amp;query_place_id=ChIJmRqn_Wxu5kcR-h5yneWXqvE" target="_blank" rel="noopener">Itinéraire Google Maps</a>
     </div>
   </div>
 </header>
@@ -237,7 +242,7 @@ footer .wrap{padding-block:26px;display:flex;justify-content:space-between;gap:1
     <div class="wrap">
       <div class="head"><span class="label">Contact</span><h2 id="t-contact">Venez nous voir</h2></div>
       <div class="contact-grid">
-        <div class="card"><span class="label">Adresse</span><span class="val">110 boulevard de Magenta<br>75010 Paris</span></div>
+        <div class="card"><span class="label">Adresse</span><span class="val">110 boulevard de Magenta<br>75010 Paris</span><a class="maps" href="https://www.google.com/maps/search/?api=1&amp;query=Restaurant+Turquoise+Istanbul+110+Boulevard+de+Magenta+75010+Paris&amp;query_place_id=ChIJmRqn_Wxu5kcR-h5yneWXqvE" target="_blank" rel="noopener">Voir sur Google Maps</a></div>
         <div class="card"><span class="label">Téléphone</span><span class="val" id="tel">09 54 90 95 50</span><button class="copy" data-copy="tel" type="button">Copier</button></div>
       </div>
     </div>
