@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Modifier le site — Turquoise Istanbul</title>
+<style>
+:root{--bg:#f4f6f8;--card:#fff;--ink:#14212b;--muted:#5b6b78;--line:#d8e0e6;--accent:#1d5d86;--danger:#b3261e;--ok:#1f7a4d}
+@media (prefers-color-scheme:dark){:root{--bg:#0f1519;--card:#172027;--ink:#e6edf2;--muted:#9fb0bd;--line:#2a3640;--accent:#6fb1dc;--danger:#ff8a80;--ok:#6fd19c;color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:24px max(16px,env(safe-area-inset-left)) 120px}
+h1{font-size:1.5rem;margin:0 0 4px}
+.sub{color:var(--muted);margin:0 0 24px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:16px}
+.card h2{font-size:1.05rem;margin:0 0 4px}
+.card p.help{color:var(--muted);font-size:.9rem;margin:0 0 12px}
+label{display:block;font-weight:600;font-size:.9rem;margin:12px 0 4px}
+input[type=text],input[type=password],textarea{width:100%;font:inherit;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
+textarea{min-height:90px;resize:vertical}
+button{font:inherit;font-weight:600;border-radius:999px;padding:10px 18px;border:1px solid var(--accent);background:transparent;color:var(--accent);cursor:pointer}
+button.primary{background:var(--accent);color:var(--card)}
+button.danger{border-color:var(--danger);color:var(--danger)}
+button[disabled]{opacity:.5;cursor:wait}
+.row{display:grid;grid-template-columns:120px 1fr;gap:10px;align-items:center;margin-bottom:8px}
+.photo{display:grid;grid-template-columns:140px 1fr;gap:14px;padding:14px 0;border-top:1px solid var(--line)}
+.photo:first-of-type{border-top:0}
+.thumb{width:140px;aspect-ratio:4/3;border-radius:8px;background:var(--bg) center/cover no-repeat;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:.8rem;text-align:center}
+.thumb.fond{width:100%;max-width:320px;aspect-ratio:16/9}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.bar{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);padding:12px max(16px,env(safe-area-inset-left)) calc(12px + env(safe-area-inset-bottom))}
+.bar .in{max-width:760px;margin:0 auto;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.msg{font-weight:600}.msg.ok{color:var(--ok)}.msg.err{color:var(--danger)}
+input[type=file]{display:none}
+@media (max-width:520px){.photo{grid-template-columns:1fr}.thumb{width:100%}.row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Modifier le site</h1>
+  <p class="sub">Turquoise Istanbul · <a href="./" target="_blank" rel="noopener">voir le site</a></p>
+
+  <div class="card" id="login">
+    <h2>Connexion</h2>
+    <label for="uid">Identifiant</label>
+    <input type="text" id="uid" autocomplete="username" autocapitalize="none">
+    <label for="pwd">Mot de passe</label>
+    <input type="password" id="pwd" autocomplete="current-password">
+    <div class="actions"><button class="primary" id="go" type="button">Se connecter</button></div>
+    <p class="msg" id="lmsg" role="status"></p>
+  </div>
+
+  <div id="editor" hidden></div>
+</div>
+<div class="bar" id="bar" hidden><div class="in"><button class="primary" id="save" type="button">Enregistrer les modifications</button><span class="msg" id="smsg" role="status"></span></div></div>
+
+<script>
+var CMS_URL='__CMS_URL__', SITE='turquoise-istanbul';
+var SCHEMA=[{"cle": "fond", "type": "image", "titre": "Image d'arrière-plan", "aide": "Photo affichée derrière le nom du restaurant en haut de la page."}, {"cle": "intro", "type": "long", "titre": "Texte d'accueil"}, {"cle": "horaires_resume", "type": "texte", "titre": "Horaires (résumé en haut de page)"}, {"cle": "tel", "type": "texte", "titre": "Téléphone"}, {"cle": "adresse", "type": "long", "titre": "Adresse", "aide": "Une ligne pour la rue, une ligne pour le code postal et la ville."}, {"cle": "horaires", "type": "horaires", "titre": "Horaires d'ouverture", "aide": "Écrivez « Fermé » pour un jour de fermeture."}, {"cle": "photos", "type": "photos", "titre": "Photos", "aide": "La première photo est affichée en grand."}];
+var DEFAUTS={"fond": "", "intro": "Döner, dürüm et grillades préparés par un chef turc, à deux pas de la gare du Nord. Généreux, chaud, à déguster sur place ou à emporter.", "horaires_resume": "Lun – sam · 11h30 – 22h", "tel": "09 54 90 95 50", "adresse": "110 boulevard de Magenta\n75010 Paris", "horaires": [{"jour": "Lundi", "heures": "11h30 – 22h00"}, {"jour": "Mardi", "heures": "11h30 – 22h00"}, {"jour": "Mercredi", "heures": "11h30 – 22h00"}, {"jour": "Jeudi", "heures": "11h30 – 22h00"}, {"jour": "Vendredi", "heures": "11h30 – 22h00"}, {"jour": "Samedi", "heures": "11h30 – 22h00"}, {"jour": "Dimanche", "heures": "Fermé"}], "photos": [{"src": "https://commons.wikimedia.org/wiki/Special:FilePath/D%C3%B6ner_kebab_slicing.jpg?width=900", "titre": "La broche", "legende": "Viande découpée à la broche"}, {"src": "https://commons.wikimedia.org/wiki/Special:FilePath/D%C3%B6ner_Kebab_auf_Teller.jpg?width=900", "titre": "Assiette döner", "legende": "Servie avec frites et salade"}, {"src": "https://commons.wikimedia.org/wiki/Special:FilePath/Adana_kebab.jpg?width=900", "titre": "Grillades", "legende": "Brochettes grillées au feu"}, {"src": "https://commons.wikimedia.org/wiki/Special:FilePath/Meze_Lido_Restaurant_Adalar.JPG?width=900", "titre": "Mezze", "legende": "Assortiment d'entrées froides"}, {"src": "https://commons.wikimedia.org/wiki/Special:FilePath/D%C3%BCr%C3%BCm_D%C3%B6ner.jpg?width=900", "titre": "Dürüm", "legende": "Galette roulée garnie"}]};
+var uid='', pwd='', data={};
+function $(id){return document.getElementById(id);}
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function post(o){o.site=SITE;o.identifiant=uid;o.motdepasse=pwd;return fetch(CMS_URL,{method:'POST',body:JSON.stringify(o)}).then(function(r){return r.json();});}
+function say(el,t,ok){el.textContent=t;el.className='msg '+(ok?'ok':'err');}
+
+$('go').onclick=function(){
+  uid=$('uid').value.trim(); pwd=$('pwd').value; if(!uid||!pwd){say($('lmsg'),'Saisissez votre identifiant et votre mot de passe.');return;}
+  if(CMS_URL.indexOf('http')!==0){say($('lmsg'),'L\'espace de modification n\'est pas encore activé.');return;}
+  $('go').disabled=true; say($('lmsg'),'Connexion…',true);
+  post({action:'connexion'}).then(function(r){
+    if(!r.ok){say($('lmsg'),r.erreur||'Connexion refusée.');$('go').disabled=false;return;}
+    return fetch(CMS_URL+'?site='+SITE).then(function(x){return x.json();}).then(function(j){
+      data=(j&&j.contenu)||JSON.parse(JSON.stringify(DEFAUTS));
+      SCHEMA.forEach(function(f){if(data[f.cle]==null)data[f.cle]=JSON.parse(JSON.stringify(DEFAUTS[f.cle]==null?'':DEFAUTS[f.cle]));});
+      $('login').hidden=true; $('editor').hidden=false; $('bar').hidden=false; render();
+    });
+  }).catch(function(){say($('lmsg'),'Connexion impossible. Vérifiez votre réseau.');$('go').disabled=false;});
+};
+$('pwd').addEventListener('keydown',function(e){if(e.key==='Enter')$('go').click();});
+
+function render(){
+  var h='';
+  SCHEMA.forEach(function(f){
+    h+='<div class="card"><h2>'+esc(f.titre)+'</h2>'+(f.aide?'<p class="help">'+esc(f.aide)+'</p>':'');
+    var v=data[f.cle];
+    if(f.type==='texte') h+='<input type="text" data-k="'+f.cle+'" value="'+esc(v)+'">';
+    if(f.type==='long') h+='<textarea data-k="'+f.cle+'">'+esc(v)+'</textarea>';
+    if(f.type==='image') h+='<div class="thumb fond" id="t-'+f.cle+'" style="'+(v?'background-image:url(&quot;'+esc(v)+'&quot;)':'')+'">'+(v?'':'Aucune image')+'</div><div class="actions"><button type="button" data-up="'+f.cle+'">Choisir une image</button>'+(v?'<button type="button" class="danger" data-clear="'+f.cle+'">Retirer</button>':'')+'</div>';
+    if(f.type==='horaires') v.forEach(function(r,i){h+='<div class="row"><strong>'+esc(r.jour)+'</strong><input type="text" data-h="'+i+'" value="'+esc(r.heures)+'" placeholder="ex. 11h30 – 22h00 ou Fermé"></div>';});
+    if(f.type==='photos'){
+      v.forEach(function(p,i){h+='<div class="photo"><div class="thumb" style="'+(p.src?'background-image:url(&quot;'+esc(p.src)+'&quot;)':'')+'">'+(p.src?'':'Aucune photo')+'</div><div><label>Titre</label><input type="text" data-p="'+i+'" data-f="titre" value="'+esc(p.titre)+'"><label>Légende</label><input type="text" data-p="'+i+'" data-f="legende" value="'+esc(p.legende)+'"><div class="actions"><button type="button" data-pup="'+i+'">Changer la photo</button><button type="button" data-pl="'+i+'" '+(i===0?'disabled':'')+'>Monter</button><button type="button" class="danger" data-pdel="'+i+'">Supprimer</button></div></div></div>';});
+      h+='<div class="actions"><button type="button" id="addp">Ajouter une photo</button></div>';
+    }
+    h+='</div>';
+  });
+  h+='<div class="card"><h2>Mon mot de passe</h2><p class="help">Connecté en tant que <b>'+esc(uid)+'</b>. 8 caractères minimum.</p><label for="np1">Nouveau mot de passe</label><input type="password" id="np1" autocomplete="new-password"><label for="np2">Confirmer le nouveau mot de passe</label><input type="password" id="np2" autocomplete="new-password"><div class="actions"><button type="button" id="chg">Changer le mot de passe</button></div><p class="msg" id="cmsg" role="status"></p></div>';
+  h+='<input type="file" id="file" accept="image/*">';
+  $('editor').innerHTML=h; bind();
+}
+function bind(){
+  document.querySelectorAll('[data-k]').forEach(function(el){el.oninput=function(){data[el.dataset.k]=el.value;};});
+  document.querySelectorAll('[data-h]').forEach(function(el){el.oninput=function(){data.horaires[+el.dataset.h].heures=el.value;};});
+  document.querySelectorAll('[data-p]').forEach(function(el){el.oninput=function(){data.photos[+el.dataset.p][el.dataset.f]=el.value;};});
+  document.querySelectorAll('[data-up]').forEach(function(b){b.onclick=function(){pick(function(url){data[b.dataset.up]=url;render();},b);};});
+  document.querySelectorAll('[data-clear]').forEach(function(b){b.onclick=function(){data[b.dataset.clear]='';render();};});
+  document.querySelectorAll('[data-pup]').forEach(function(b){b.onclick=function(){pick(function(url){data.photos[+b.dataset.pup].src=url;render();},b);};});
+  document.querySelectorAll('[data-pdel]').forEach(function(b){b.onclick=function(){data.photos.splice(+b.dataset.pdel,1);render();};});
+  document.querySelectorAll('[data-pl]').forEach(function(b){b.onclick=function(){var i=+b.dataset.pl;var t=data.photos[i];data.photos[i]=data.photos[i-1];data.photos[i-1]=t;render();};});
+  $('chg').onclick=function(){var a1=$('np1').value,a2=$('np2').value;if(a1.length<8){say($('cmsg'),'8 caractères minimum.');return;}if(a1!==a2){say($('cmsg'),'Les deux mots de passe ne correspondent pas.');return;}post({action:'changer_mdp',nouveau:a1}).then(function(r){if(!r.ok)throw new Error(r.erreur);pwd=a1;$('np1').value=$('np2').value='';say($('cmsg'),'Mot de passe changé.',true);}).catch(function(e){say($('cmsg'),'Changement impossible : '+(e.message||'erreur réseau'));});};
+  var a=$('addp'); if(a)a.onclick=function(){pick(function(url){data.photos.push({src:url,titre:'',legende:''});render();},a);};
+}
+function pick(done,btn){
+  var inp=$('file'); inp.value='';
+  inp.onchange=function(){
+    var f=inp.files[0]; if(!f)return;
+    btn.disabled=true; var old=btn.textContent; btn.textContent='Envoi…';
+    resize(f).then(function(b64){return post({action:'photo',type:'image/jpeg',base64:b64});})
+      .then(function(r){if(!r.ok)throw new Error(r.erreur);done(r.url);say($('smsg'),'Photo envoyée. Pensez à enregistrer.',true);})
+      .catch(function(e){say($('smsg'),'Envoi de la photo impossible : '+(e.message||'erreur'));btn.disabled=false;btn.textContent=old;});
+  };
+  inp.click();
+}
+function resize(file){
+  return new Promise(function(ok,ko){
+    var img=new Image(),u=URL.createObjectURL(file);
+    img.onload=function(){var m=1800,w=img.width,h=img.height,s=Math.min(1,m/Math.max(w,h));
+      var c=document.createElement('canvas');c.width=Math.round(w*s);c.height=Math.round(h*s);
+      c.getContext('2d').drawImage(img,0,0,c.width,c.height);URL.revokeObjectURL(u);
+      ok(c.toDataURL('image/jpeg',0.85).split(',')[1]);};
+    img.onerror=function(){ko(new Error('format d\'image non reconnu'));};
+    img.src=u;
+  });
+}
+$('save').onclick=function(){
+  $('save').disabled=true; say($('smsg'),'Enregistrement…',true);
+  post({action:'enregistrer',contenu:data}).then(function(r){
+    if(!r.ok)throw new Error(r.erreur);
+    say($('smsg'),'Enregistré. Le site est à jour.',true);
+  }).catch(function(e){say($('smsg'),'Enregistrement impossible : '+(e.message||'erreur réseau'));})
+  .finally(function(){$('save').disabled=false;});
+};
+</script>
+</body>
+</html>

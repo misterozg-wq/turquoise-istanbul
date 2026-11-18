@@ -135,12 +135,15 @@ footer .wrap{padding-block:26px;display:flex;justify-content:space-between;gap:1
 .maps:hover{background:color-mix(in srgb, var(--bg) 12%, transparent)}
 .cta-maps{display:inline-block;margin:22px 0 0 10px;padding:11px 22px;border-radius:999px;border:2px solid rgba(238,250,249,.7);color:var(--on-dark);font-weight:700;text-decoration:none}
 @media (max-width:480px){.cta-maps{margin-left:0}}
+.addr{white-space:pre-line}
+.hero.has-fond{background-color:transparent}
+.hero.has-fond::before{opacity:0}
 </style>
 </head>
 <body>
 
 
-<header class="hero">
+<header class="hero" data-cms-fond>
   <div class="wrap">
     <div class="top">
       <div class="brand">TURQUOISE ISTANBUL</div>
@@ -155,9 +158,9 @@ footer .wrap{padding-block:26px;display:flex;justify-content:space-between;gap:1
     <div>
       <p class="label" style="color:#7fe3dc">Restaurant turc · Paris 10e</p>
       <h1>Turquoise <span>Istanbul</span></h1>
-      <p>Döner, dürüm et grillades préparés par un chef turc, à deux pas de la gare du Nord. Généreux, chaud, à déguster sur place ou à emporter.</p>
+      <p data-cms="intro">Döner, dürüm et grillades préparés par un chef turc, à deux pas de la gare du Nord. Généreux, chaud, à déguster sur place ou à emporter.</p>
       <div class="chips">
-        <span class="chip open">Lun – sam · 11h30 – 22h</span>
+        <span class="chip open" data-cms="horaires_resume">Lun – sam · 11h30 – 22h</span>
         <span class="chip">Sur place</span>
         <span class="chip">À emporter</span>
         <span class="chip">Terrasse</span>
@@ -189,7 +192,7 @@ footer .wrap{padding-block:26px;display:flex;justify-content:space-between;gap:1
   <section class="gallery" id="photos" aria-labelledby="t-photos">
     <div class="wrap">
       <div class="head"><span class="label">En images</span><h2 id="t-photos">Broche, grillades et mezze</h2></div>
-      <div class="grid-ph"><figure class="ph big"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/D%C3%B6ner_kebab_slicing.jpg?width=900" alt="La broche — Viande découpée à la broche" loading="lazy"><figcaption><strong>La broche</strong><span>Viande découpée à la broche</span></figcaption></figure><figure class="ph"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/D%C3%B6ner_Kebab_auf_Teller.jpg?width=900" alt="Assiette döner — Servie avec frites et salade" loading="lazy"><figcaption><strong>Assiette döner</strong><span>Servie avec frites et salade</span></figcaption></figure><figure class="ph"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Adana_kebab.jpg?width=900" alt="Grillades — Brochettes grillées au feu" loading="lazy"><figcaption><strong>Grillades</strong><span>Brochettes grillées au feu</span></figcaption></figure><figure class="ph"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Meze_Lido_Restaurant_Adalar.JPG?width=900" alt="Mezze — Assortiment d'entrées froides" loading="lazy"><figcaption><strong>Mezze</strong><span>Assortiment d'entrées froides</span></figcaption></figure><figure class="ph"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/D%C3%BCr%C3%BCm_D%C3%B6ner.jpg?width=900" alt="Dürüm — Galette roulée garnie" loading="lazy"><figcaption><strong>Dürüm</strong><span>Galette roulée garnie</span></figcaption></figure></div>
+      <div class="grid-ph" data-cms="photos"><figure class="ph big"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/D%C3%B6ner_kebab_slicing.jpg?width=900" alt="La broche — Viande découpée à la broche" loading="lazy"><figcaption><strong>La broche</strong><span>Viande découpée à la broche</span></figcaption></figure><figure class="ph"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/D%C3%B6ner_Kebab_auf_Teller.jpg?width=900" alt="Assiette döner — Servie avec frites et salade" loading="lazy"><figcaption><strong>Assiette döner</strong><span>Servie avec frites et salade</span></figcaption></figure><figure class="ph"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Adana_kebab.jpg?width=900" alt="Grillades — Brochettes grillées au feu" loading="lazy"><figcaption><strong>Grillades</strong><span>Brochettes grillées au feu</span></figcaption></figure><figure class="ph"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Meze_Lido_Restaurant_Adalar.JPG?width=900" alt="Mezze — Assortiment d'entrées froides" loading="lazy"><figcaption><strong>Mezze</strong><span>Assortiment d'entrées froides</span></figcaption></figure><figure class="ph"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/D%C3%BCr%C3%BCm_D%C3%B6ner.jpg?width=900" alt="Dürüm — Galette roulée garnie" loading="lazy"><figcaption><strong>Dürüm</strong><span>Galette roulée garnie</span></figcaption></figure></div>
     </div>
   </section>
   <section class="infos" id="infos" aria-labelledby="t-infos">
@@ -197,7 +200,7 @@ footer .wrap{padding-block:26px;display:flex;justify-content:space-between;gap:1
       <div>
         <div class="head"><span class="label">Horaires</span><h2 id="t-infos">Ouvert six jours sur sept</h2></div>
         <table class="hours">
-          <tbody>
+          <tbody data-cms="horaires">
             <tr><td>Lundi</td><td>11h30 – 22h00</td></tr>
             <tr><td>Mardi</td><td>11h30 – 22h00</td></tr>
             <tr><td>Mercredi</td><td>11h30 – 22h00</td></tr>
@@ -242,8 +245,9 @@ footer .wrap{padding-block:26px;display:flex;justify-content:space-between;gap:1
     <div class="wrap">
       <div class="head"><span class="label">Contact</span><h2 id="t-contact">Venez nous voir</h2></div>
       <div class="contact-grid">
-        <div class="card"><span class="label">Adresse</span><span class="val">110 boulevard de Magenta<br>75010 Paris</span><a class="maps" href="https://www.google.com/maps/search/?api=1&amp;query=Restaurant+Turquoise+Istanbul+110+Boulevard+de+Magenta+75010+Paris&amp;query_place_id=ChIJmRqn_Wxu5kcR-h5yneWXqvE" target="_blank" rel="noopener">Voir sur Google Maps</a></div>
-        <div class="card"><span class="label">Téléphone</span><span class="val" id="tel">09 54 90 95 50</span><button class="copy" data-copy="tel" type="button">Copier</button></div>
+        <div class="card"><span class="label">Adresse</span><span class="val addr" data-cms="adresse">110 boulevard de Magenta
+75010 Paris</span><a class="maps" href="https://www.google.com/maps/search/?api=1&amp;query=Restaurant+Turquoise+Istanbul+110+Boulevard+de+Magenta+75010+Paris&amp;query_place_id=ChIJmRqn_Wxu5kcR-h5yneWXqvE" target="_blank" rel="noopener">Voir sur Google Maps</a></div>
+        <div class="card"><span class="label">Téléphone</span><span class="val" id="tel" data-cms="tel">09 54 90 95 50</span><button class="copy" data-copy="tel" type="button">Copier</button></div>
       </div>
     </div>
   </section>
@@ -252,7 +256,7 @@ footer .wrap{padding-block:26px;display:flex;justify-content:space-between;gap:1
 <footer>
   <div class="wrap">
     <span>© Turquoise Istanbul · Les Délices d'Orient</span>
-    <span>110 boulevard de Magenta, 75010 Paris</span>
+    <span data-cms="adresse_ligne">110 boulevard de Magenta, 75010 Paris</span>
   </div>
   <div class="wrap credits">Photos d'illustration : Wikimedia Commons, licences libres (auteurs et licences sur chaque page) — <a href="https://commons.wikimedia.org/wiki/File:D%C3%B6ner_kebab_slicing.jpg" target="_blank" rel="noopener">La broche</a> · <a href="https://commons.wikimedia.org/wiki/File:D%C3%B6ner_Kebab_auf_Teller.jpg" target="_blank" rel="noopener">Assiette döner</a> · <a href="https://commons.wikimedia.org/wiki/File:Adana_kebab.jpg" target="_blank" rel="noopener">Grillades</a> · <a href="https://commons.wikimedia.org/wiki/File:Meze_Lido_Restaurant_Adalar.JPG" target="_blank" rel="noopener">Mezze</a> · <a href="https://commons.wikimedia.org/wiki/File:D%C3%BCr%C3%BCm_D%C3%B6ner.jpg" target="_blank" rel="noopener">Dürüm</a>.</div>
 </footer>
@@ -288,6 +292,30 @@ document.querySelectorAll('.copy').forEach(function(b){
       .catch(function(){say('L\'envoi a échoué. Vérifiez votre connexion ou appelez-nous au 09 54 90 95 50.');})
       .finally(function(){btn.disabled=false;});
   });
+})();
+</script>
+
+<script>
+(function(){
+  var CMS_URL='__CMS_URL__', SITE='turquoise-istanbul', OVERLAY='linear-gradient(rgba(12,24,60,.72), rgba(12,24,60,.72))';
+  function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  function apply(c){
+    if(!c)return;
+    document.querySelectorAll('[data-cms]').forEach(function(el){
+      var k=el.getAttribute('data-cms'),v=c[k];
+      if(k==='adresse_ligne'&&c.adresse){el.textContent=c.adresse.replace(/\s*\n\s*/g,', ');return;}
+      if(v==null||v==='')return;
+      if(k==='horaires'&&Array.isArray(v)){
+        el.innerHTML=v.map(function(r){return '<tr'+(/ferm/i.test(r.heures)?' class="closed"':'')+'><td>'+esc(r.jour)+'</td><td>'+esc(r.heures)+'</td></tr>';}).join('');
+      }else if(k==='photos'&&Array.isArray(v)){
+        el.innerHTML=v.filter(function(p){return p.src;}).map(function(p,i){return '<figure class="ph'+(i===0?' big':'')+'"><img src="'+esc(p.src)+'" alt="'+esc(p.titre)+'" loading="lazy"><figcaption><strong>'+esc(p.titre)+'</strong><span>'+esc(p.legende)+'</span></figcaption></figure>';}).join('');
+        var cr=document.querySelector('.credits');if(cr)cr.hidden=true;
+      }else if(typeof v==='string'){el.textContent=v;}
+    });
+    if(c.fond){var h=document.querySelector('[data-cms-fond]');if(h){h.style.backgroundImage=OVERLAY+', url("'+c.fond.replace(/"/g,'%22')+'")';h.style.backgroundSize='cover';h.style.backgroundPosition='center';h.classList.add('has-fond');}}
+  }
+  if(CMS_URL.indexOf('http')!==0)return;
+  fetch(CMS_URL+'?site='+SITE).then(function(r){return r.json();}).then(function(j){if(j&&j.ok)apply(j.contenu);}).catch(function(){});
 })();
 </script>
 </body>
