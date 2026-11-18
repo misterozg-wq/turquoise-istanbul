@@ -266,7 +266,7 @@ document.querySelectorAll('.copy').forEach(function(b){
 
 <script>
 (function(){
-  var URL_SCRIPT='A_REMPLACER_PAR_URL_APPS_SCRIPT';
+  var URL_SCRIPT='https://script.google.com/macros/s/AKfycbwOVPgc52eV5OIusgHYR0qAmgZHsKt32f56ByfwgQFpDExc8dtvETnnYDpNvsbLb7HF/exec';
   var f=document.getElementById('resa-form'),msg=document.getElementById('r-msg'),btn=document.getElementById('r-btn'),d=document.getElementById('r-date');
   var today=new Date();today.setMinutes(today.getMinutes()-today.getTimezoneOffset());d.min=today.toISOString().slice(0,10);
   function say(t,ok){msg.textContent=t;msg.className='msg '+(ok?'ok':'err');}
