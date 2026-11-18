@@ -160,7 +160,7 @@ footer .wrap{padding-block:26px;display:flex;justify-content:space-between;gap:1
       <h1>Turquoise <span>Istanbul</span></h1>
       <p data-cms="intro">Döner, dürüm et grillades préparés par un chef turc, à deux pas de la gare du Nord. Généreux, chaud, à déguster sur place ou à emporter.</p>
       <div class="chips">
-        <span class="chip open" data-cms="horaires_resume">Lun – sam · 11h30 – 22h</span>
+        <span class="chip open" data-cms="horaires_resume">7j/7 · 11h30 – 22h</span>
         <span class="chip">Sur place</span>
         <span class="chip">À emporter</span>
         <span class="chip">Terrasse</span>
@@ -198,7 +198,7 @@ footer .wrap{padding-block:26px;display:flex;justify-content:space-between;gap:1
   <section class="infos" id="infos" aria-labelledby="t-infos">
     <div class="wrap">
       <div>
-        <div class="head"><span class="label">Horaires</span><h2 id="t-infos">Ouvert six jours sur sept</h2></div>
+        <div class="head"><span class="label">Horaires</span><h2 id="t-infos">Ouvert 7 jours sur 7</h2></div>
         <table class="hours">
           <tbody data-cms="horaires">
             <tr><td>Lundi</td><td>11h30 – 22h00</td></tr>
@@ -207,7 +207,7 @@ footer .wrap{padding-block:26px;display:flex;justify-content:space-between;gap:1
             <tr><td>Jeudi</td><td>11h30 – 22h00</td></tr>
             <tr><td>Vendredi</td><td>11h30 – 22h00</td></tr>
             <tr><td>Samedi</td><td>11h30 – 22h00</td></tr>
-            <tr class="closed"><td>Dimanche</td><td>Fermé</td></tr>
+            <tr><td>Dimanche</td><td>11h30 – 22h00</td></tr>
           </tbody>
         </table>
       </div>
@@ -284,7 +284,6 @@ document.querySelectorAll('.copy').forEach(function(b){
     var bad=null;
     f.querySelectorAll('[required]').forEach(function(el){var v=el.checkValidity();el.setAttribute('aria-invalid',v?'false':'true');if(!v&&!bad)bad=el;});
     if(bad){say('Vérifiez le champ « '+f.querySelector('label[for="'+bad.id+'"]').textContent+' ».');bad.focus();return;}
-    if(new Date(d.value+'T12:00:00').getDay()===0){say('Le restaurant est fermé le dimanche. Choisissez un autre jour.');d.focus();return;}
     if(URL_SCRIPT.indexOf('http')!==0){say('La réservation en ligne sera bientôt disponible. Appelez-nous au 09 54 90 95 50.');return;}
     btn.disabled=true;say('Envoi en cours…',true);
     fetch(URL_SCRIPT,{method:'POST',mode:'no-cors',body:new URLSearchParams(new FormData(f))})
